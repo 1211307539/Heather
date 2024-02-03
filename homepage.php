@@ -184,7 +184,8 @@
             $sqlSearch = "SELECT *, CONCAT(users.USER_FNAME, ' ', users.USER_LNAME) AS user_name  
                         FROM property
                         INNER JOIN users ON property.ADVERTISER_ID = users.USER_ID
-                        WHERE POSTCODE = '$searchTerm' OR PROP_ADDRESS LIKE '%$searchTerm%' OR PROP_NAME LIKE '%$searchTerm%'";
+                        WHERE POSTCODE = '$searchTerm' OR PROP_ADDRESS LIKE '%$searchTerm%' OR PROP_NAME LIKE '%$searchTerm%'
+                        AND status = 'available'";
             $exec = $conn->query($sqlSearch);
 
             if ($exec->num_rows > 0) {
