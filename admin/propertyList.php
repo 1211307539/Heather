@@ -156,7 +156,7 @@
                     $sql = "SELECT property.PROP_ID, property.ADVERTISER_ID, CONCAT(users.USER_FNAME, ' ', users.USER_LNAME) AS user_name, property.PROP_NAME, property.PROP_ADDRESS, property.status 
                     FROM property
                     INNER JOIN users ON property.ADVERTISER_ID = users.USER_ID 
-                    WHERE property.status = 'available' OR property.status = 'unavailable' OR property.status = 'rejected'";                    
+                    WHERE property.status = 'available' OR property.status = 'unavailable'";                    
                     $result = $conn->query($sql);
                     
                     if(!$result){
