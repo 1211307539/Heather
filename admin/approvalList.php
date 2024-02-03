@@ -164,7 +164,7 @@
                     $sql = "SELECT property.PROP_ID, CONCAT(users.USER_FNAME, ' ', users.USER_LNAME) AS user_name, property.PROP_NAME, property.PROP_ADDRESS, property.status 
                     FROM property
                     INNER JOIN users ON property.ADVERTISER_ID = users.USER_ID 
-                    WHERE property.status = 'pending'";                    
+                    WHERE property.status = 'pending'  OR property.status = 'rejected'";                    
                     $result = $conn->query($sql);
                     
                     if(!$result){
