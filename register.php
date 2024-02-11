@@ -1,6 +1,47 @@
+<?php
+    include "connection.php";
+    if(isset($_POST['submit'])){
+        $email = $_POST['USER_EMAIL'];
+        $phone = $_POST['USER_CONTACT'];
+        $password = $_POST['USER_PASS'];
+        $confirmPassword = $_POST['CONFIRM_PASS'];
+        $fname = $_POST['USER_FNAME'];
+        $lname = $_POST['USER_LNAME'];
+        $userRole = $_POST['USER_ROLE']; // New line to capture user role
+        $errors = array();
+        if (empty($email) || empty($phone) || empty($password) || empty($fname) || empty($lname)){
+            array_push($errors, "Fill in the blanks!");
+        }
+
+        if ($password != $confirmPassword){
+            array_push($errors, "Passwords do not match!");
+        }
+
+        if (empty($errors)){
+            $sql = "INSERT INTO `users`(`USER_ID`, `USER_EMAIL`, `USER_PASS`, `USER_FNAME`, `USER_LNAME`, `USER_CONTACT`, `USER_TYPE`) 
+            VALUES ('', ?, ?, ?, ?, ?, ?)";
+            $stmt = mysqli_stmt_init($conn);
+
+            if (mysqli_stmt_prepare($stmt, $sql)){
+                mysqli_stmt_bind_param($stmt, "ssssis", $email, $password, $fname, $lname, $phone, $userRole);
+                
+                if (mysqli_stmt_execute($stmt)){
+                    echo "<script>alert('You have registered successfully!');
+                    window.location.href = 'login.php';
+                    </script>";
+                } else {
+                    echo "<script>alert('Something went wrong.');</script>";
+                }
+            } else {
+                echo "<div class='alert alert-danger'>Statement preparation failed.</div>";
+            }
+            mysqli_stmt_close($stmt);
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -171,62 +212,78 @@
 <body>
 
     <div class="container">
-        <h1>Create a Heather Account</h1>
-        <p class="account-selection">Select an account:</p>
-        <div class="option-buttons">
-            <div class="option-button" onclick="toggleButton('tenant')" data-option="tenant"></div>
-            <span class="button-name">Tenant</span>
-            <div class="option-button" onclick="toggleButton('propertyAdvertiser')" data-option="propertyAdvertiser"></div>
-            <span class="button-name">Property Advertiser</span>
-        </div>
+        <!-- Your HTML content here -->
+            <h1>Create a Heather Account</h1>
+            <p class="account-selection">Select an account:</p>
 
-        <input type="email" class="input-bar" placeholder="Email">
-        <input type="tel" class="input-bar" placeholder="Phone Number">
-        <input type="password" class="input-bar" placeholder="Password">
-        <p class="password-description">6 characters or more.</p>
-        <input type="password" class="input-bar" placeholder="Confirm Password">
-        <input type="text" class="input-bar" placeholder="First Name">
-        <input type="text" class="input-bar" placeholder="Last Name">
+        <form action="register.php" method="POST">
+            <div class="option-buttons">
+                <div class="option-button" onclick="toggleButton('tenant')" data-option="tenant"></div>
+                <span class="button-name">Tenant</span>
+                <div class="option-button" onclick="toggleButton('propertyAdvertiser')" data-option="propertyAdvertiser"></div>
+                <span class="button-name">Property Advertiser</span>
+            </div>
 
-        <div class="checkbox-container">
-            <input type="checkbox" class="checkbox" id="agreeTerms" onclick="updateRegisterButtonState()">
-            <label for="agreeTerms" class="terms-text" onclick="openModal()">I have read and agreed to the <a href="#">Terms and Conditions</a></label>
-        </div>
+            <input type="hidden" name="USER_ROLE" id="userRole" value=""> <!-- Hidden input field for user role -->
+            <input type="text" name="USER_EMAIL" class="input-bar" placeholder="Email" oninput="updateRegisterButtonState()">
+            <input type="text" name="USER_CONTACT" class="input-bar" placeholder="Phone Number" oninput="updateRegisterButtonState()">
+            <input type="text" name="USER_PASS" class="input-bar" placeholder="Password" oninput="updateRegisterButtonState()">
+            <p class="password-description">6 characters or more.</p>
+            <input type="text" name="CONFIRM_PASS" class="input-bar" placeholder="Confirm Password" oninput="updateRegisterButtonState()">
+            <input type="text" name="USER_FNAME" class="input-bar" placeholder="First Name" oninput="updateRegisterButtonState()">
+            <input type="text" name="USER_LNAME" class="input-bar" placeholder="Last Name" oninput="updateRegisterButtonState()">
 
-        <div id="termsModal" class="modal">
-          <div class="modal-content">
-              <span class="close" onclick="closeModal()">&times;</span>
-              <h2 style="text-align: center; font-size: 20px;">Terms and Conditions</h2>
-              <p>hello welcome to heather! This is the terms and regulations!</p>
-          </div>
-        </div>
+            <div class="checkbox-container">
+                <input type="checkbox" class="checkbox" id="agreeTerms" onclick="updateRegisterButtonState()">
+                <label for="agreeTerms" class="terms-text" onclick="openModal()">I have read and agreed to the <a href="#">Terms and Conditions</a></label>
+            </div>
 
-        <button class="register-button" onclick="registerUser()">Register</button>
+            <div id="termsModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2 style="text-align: center; font-size: 20px;">Terms and Conditions</h2>
+                    <p>hello welcome to heather! This is the terms and regulations!</p>
+                </div>
+            </div>
 
-        <div class="login-link-container">
-            Already have an account? <span class="login-link" onclick="redirectToLoginPage()">Sign in</span>
-        </div>
+            <button type="submit" class="register-button" name="submit" onclick="registerUser()">Register</button>
+        </form>
+            <div class="login-link-container">
+                Already have an account? <span class="login-link" onclick="redirectToLoginPage()">Sign in</span>
+            </div>
     </div>
 
     <script>
         function toggleButton(option) {
             const tenantButton = document.querySelector('.option-button[data-option="tenant"]');
             const propertyAdvertiserButton = document.querySelector('.option-button[data-option="propertyAdvertiser"]');
+            const userRoleInput = document.getElementById('userRole');
 
             if (option === 'tenant') {
                 tenantButton.classList.add('selected');
                 propertyAdvertiserButton.classList.remove('selected');
+                userRoleInput.value = 'tenant';
             } else if (option === 'propertyAdvertiser') {
                 tenantButton.classList.remove('selected');
                 propertyAdvertiserButton.classList.add('selected');
+                userRoleInput.value = 'property_advertiser';
             }
         }
 
         function updateRegisterButtonState() {
             const agreeTermsCheckbox = document.getElementById('agreeTerms');
             const registerButton = document.querySelector('.register-button');
+            const inputFields = document.querySelectorAll('.input-bar');
 
-            if (agreeTermsCheckbox.checked) {
+            // Check if all input fields are filled and the checkbox is checked
+            let allFieldsFilled = true;
+            inputFields.forEach(input => {
+                if (input.value.trim() === '') {
+                    allFieldsFilled = false;
+                }
+            });
+
+            if (allFieldsFilled && agreeTermsCheckbox.checked) {
                 registerButton.classList.add('enabled');
             } else {
                 registerButton.classList.remove('enabled');
@@ -234,7 +291,8 @@
         }
 
         function registerUser() {
-            alert('User registered!');
+            const form = document.querySelector('form');
+            form.submit();        
         }
 
         function openModal() {
@@ -255,9 +313,8 @@
         };
 
         function redirectToLoginPage() {
-            window.location.href = 'login.html';
+            window.location.href = 'login.php';
         }
     </script>
-
 </body>
 </html>
