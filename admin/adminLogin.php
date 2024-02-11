@@ -13,8 +13,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
 
-    $sql = "SELECT * FROM users WHERE USER_EMAIL = '$email' OR USER_CONTACT = '$email' AND USER_PASS = '$password'";
-    $result = $conn->query($sql);
+    // Use prepared statement to prevent SQL injection
+    $stmt = $conn->prepare("SELECT * FROM admins WHERE (ADMIN_EMAIL = ? OR ADMIN_CONTACT = ?) AND ADMIN_PASS = ?");
+    $stmt->bind_param("sss", $email, $email, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     // Check if user exists
     if ($result->num_rows > 0) {
@@ -36,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     }
 
+    $stmt->close();
     $conn->close();
 }
 ?>
