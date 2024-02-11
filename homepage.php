@@ -10,7 +10,7 @@
     <style>
 
         body {
-            font-family: Inria Serif;
+            margin : 0;
         }
 
         .property-container {
@@ -116,9 +116,38 @@
 
             .search-container {
                 text-align: center;
-                margin-top: 20px;
+                margin-top: 40px;
                 display: flex;
                 justify-content: center;
+            }
+
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: hsl(155, 83%, 69%);
+                min-width: 160px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropdown-item {
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                color: black;
+            }
+
+            .dropdown-item:hover {
+                background-color: hsl(162, 68%, 49%);
             }
 
             .search-wrapper {
@@ -139,6 +168,7 @@
                 border: 1px solid #ccc;
                 border-radius: 5px;
                 font-size: 16px;
+                margin-right: 25px;
             }
 
     </style>
@@ -148,13 +178,22 @@
 
     <header>
         <div>
-            <h1 style="font-size:100px; line-height:30%; margin-bottom:25px;">Heather‧࿐࿔ </h1>
+            <a href="homepage.php" style="text-decoration: none; color:black">
+              <h1 style="font-size:120px; line-height:30%; margin-bottom:25px; margin-top: 10px;">Heather‧࿐࿔ </h1>
+            </a>
             <h2 style="font-size:22px;">Find the right cohabitation for you.</h2>
         </div>
 
         <div class="header-buttons">
             <a href="#" class="underline-button" onclick="window.location.href = 'aboutus.html'">About Us</a>
-            <a href="#" class="underline-button" onclick="">Contact Us</a>
+            <div class="dropdown">
+                <a href="#" class="underline-button">Contact Us</a>
+                <div class="dropdown-content">
+                    <a href="mailto:1211103282@student.mmu.edu.my" class="dropdown-item">Aida</a>
+                    <a href="mailto:1211103293@student.mmu.edu.my" class="dropdown-item">Farah</a>
+                    <a href="mailto:1211307539@student.mmu.edu.my" class="dropdown-item">Amirah</a>
+                </div>
+            </div>
             <button class="button" onclick="redirectLogInPage()">Log In</button>
         </div>
     </header>
@@ -164,10 +203,10 @@
         <div class="search-wrapper">
             <span class="search-text">Area or Postcode</span>
             <input name="searchTerm" value="" type="text" class="search-bar" placeholder="Search">
-            <button type="submit" name="search">Search</button>
+            <button class="button" name="search">Search</button>
         </div>
     </div>
-</form>
+    </form>
 
     <?php
     include "connection.php";
@@ -190,10 +229,10 @@
 
             if ($exec->num_rows > 0) {
                 while ($row = mysqli_fetch_assoc($exec)) {
-            ?>
+                    ?>
                             <div class="property-container">
                             <h1><?php echo $row['PROP_NAME']; ?></h1>
-                            <img src="../../<?php echo $row['image']; ?>" alt="Property Image" style="max-width: 100%; height: auto;">
+                            <img src="<?php echo $row['image']; ?>" alt="Property Image" style="max-width: 100%; height: auto;">
                             <p><strong>Property Advertiser:</strong> <?php echo $row['user_name']; ?></p>
                             <p><strong>Property Address:</strong> <?php echo $row['PROP_ADDRESS']; ?></p>
                             <p><strong>Postcode:</strong> <?php echo $row['POSTCODE']; ?></p>
@@ -205,7 +244,7 @@
                             <p><strong>Status:</strong> <?php echo $row['status']; ?></p>
                             <button class="button" onclick="redirectLogInPage()">Chat to book with us!</button>
                         </div>
-            <?php
+                    <?php
                 }
             } else {
                 echo '<p>No properties found matching your search.</p>';
@@ -216,7 +255,7 @@
             ?>
                     <div class="property-container">
                         <h1><?php echo $row['PROP_NAME']; ?></h1>
-                        <img src="../../<?php echo $row['image']; ?>" alt="Property Image" style="max-width: 100%; height: auto;">
+                        <img src="<?php echo $row['image']; ?>" alt="Property Image" style="max-width: 100%; height: auto;">
                         <p><strong>Property Advertiser:</strong> <?php echo $row['user_name']; ?></p>
                         <p><strong>Property Address:</strong> <?php echo $row['PROP_ADDRESS']; ?></p>
                         <p><strong>Postcode:</strong> <?php echo $row['POSTCODE']; ?></p>
@@ -238,7 +277,7 @@
 
     <script>
         function redirectLogInPage() {
-            window.location.href = 'login.html';
+            window.location.href = 'login.php';
         }
     </script>
 
