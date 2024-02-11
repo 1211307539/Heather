@@ -9,16 +9,16 @@
         $lname = $_POST['USER_LNAME'];
         $errors = array();
         if (empty($email) || empty($phone) || empty($password) ||empty($fname) ||empty($lname)) {
-            array_push($errors, "Fill in the blanks");
+            array_push($errors, "Fill in the blanks!");
         }
             // to check if passwords match
         if ($password != $confirmPassword) {
-            array_push($errors, "Passwords do not match");
+            array_push($errors, "Passwords do not match!");
         }
         // filter/validate email
         if (empty($errors)) {
             // require_once "connection.php";
-            $sql = "INSERT INTO `users`(`USER_ID`, `USER_EMAIL`, `USER_PASS`, `USER_FNAME`, `USER_LNAME`, `USER_CONTACT`, `USER_TYPE`) 
+            $sql = "INSERT INTO `admins`(`ADMIN_ID`, `ADMIN_EMAIL`, `ADMIN_PASS`, `ADMIN_FNAME`, `ADMIN_LNAME`, `ADMIN_CONTACT`, `USER_TYPE`) 
             VALUES ('', ?, ?, ?, ?, ?, 'Admin')";
             $stmt = mysqli_stmt_init($conn);
 
@@ -36,7 +36,6 @@
                 echo "<div class='alert alert-danger'>Statement preparation failed.</div>";
             }  
             mysqli_stmt_close($stmt);
-            
         }
     }
 ?>
