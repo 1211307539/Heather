@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2024 at 08:22 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- Generation Time: Feb 11, 2024 at 06:03 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,20 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Table structure for table `admins`
 --
 
-CREATE TABLE `admin` (
+CREATE TABLE `admins` (
   `ADMIN_ID` int(11) NOT NULL,
-  `USER_ID` int(11) NOT NULL
+  `ADMIN_EMAIL` varchar(50) NOT NULL,
+  `ADMIN_PASS` varchar(20) NOT NULL,
+  `ADMIN_FNAME` varchar(50) NOT NULL,
+  `ADMIN_LNAME` varchar(50) NOT NULL,
+  `ADMIN_CONTACT` bigint(25) NOT NULL,
+  `USER_TYPE` enum('Admin') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `admin`
+-- Dumping data for table `admins`
 --
 
-INSERT INTO `admin` (`ADMIN_ID`, `USER_ID`) VALUES
-(0, 3);
+INSERT INTO `admins` (`ADMIN_ID`, `ADMIN_EMAIL`, `ADMIN_PASS`, `ADMIN_FNAME`, `ADMIN_LNAME`, `ADMIN_CONTACT`, `USER_TYPE`) VALUES
+(2, 'admin1@gmail.com', '123', 'admin', '1', 5555, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -73,6 +78,31 @@ INSERT INTO `property` (`PROP_ID`, `PROP_NAME`, `ADVERTISER_ID`, `PROP_ADDRESS`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `room`
+--
+
+CREATE TABLE `room` (
+  `ROOM_ID` int(11) NOT NULL,
+  `PROP_ID` int(11) NOT NULL,
+  `ROOM_IMAGE` varchar(100) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `room`
+--
+
+INSERT INTO `room` (`ROOM_ID`, `PROP_ID`, `ROOM_IMAGE`, `status`) VALUES
+(1, 1, 'img\\room1.jpg', 'Available'),
+(2, 1, 'img\\room2.jpg', 'Available'),
+(3, 2, 'img\\room3.jpg', 'Available'),
+(4, 2, 'img\\room4.jpg', 'Available'),
+(5, 13, 'img\\room5.jpg', 'Available'),
+(6, 13, 'img\\room6.jpg', 'Available');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -83,7 +113,7 @@ CREATE TABLE `users` (
   `USER_FNAME` varchar(50) DEFAULT NULL,
   `USER_LNAME` varchar(50) DEFAULT NULL,
   `USER_CONTACT` bigint(25) NOT NULL,
-  `USER_TYPE` enum('Tenant','Advertiser','Admin') NOT NULL
+  `USER_TYPE` enum('Tenant','Advertiser') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -93,24 +123,23 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`USER_ID`, `USER_EMAIL`, `USER_PASS`, `USER_FNAME`, `USER_LNAME`, `USER_CONTACT`, `USER_TYPE`) VALUES
 (1, 'tenant1@gmail.com', '123', 'Tenant', 'One', 112345678, 'Tenant'),
 (2, 'advertiser1@gmail.com', '123', 'Advertiser', 'One', 122345678, 'Advertiser'),
-(3, 'admin1@gmail.com', '123', 'Admin', 'One', 132345678, 'Admin'),
 (4, 'Naruto@gmail.com', '123', 'Naruto', 'Uzumaki', 123, 'Advertiser'),
 (5, 'Luffy@gmail.com', '123', 'Luffy', 'Monkey D', 1234, 'Advertiser'),
 (6, 'eren@gmail.com', '123', 'Eren', 'Yaegar', 9876, 'Advertiser'),
 (7, 'howl@gmail.com', '123', 'Howl', 'Pendragon', 12345, 'Advertiser'),
-(31, 'abu@', '123', 'hdskj', 'test', 900990, 'Admin'),
-(36, '111', '111', '111', '111', 111, 'Admin');
+(39, 'hahanju@gmail.com', 'mhhm', 'hanju', 'cantik', 2903, 'Tenant');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `admins`
 --
-ALTER TABLE `admin`
+ALTER TABLE `admins`
   ADD PRIMARY KEY (`ADMIN_ID`),
-  ADD KEY `USER_ID` (`USER_ID`);
+  ADD KEY `ADMIN_EMAIL` (`ADMIN_EMAIL`),
+  ADD KEY `ADMIN_CONTACT` (`ADMIN_CONTACT`);
 
 --
 -- Indexes for table `property`
@@ -118,6 +147,13 @@ ALTER TABLE `admin`
 ALTER TABLE `property`
   ADD PRIMARY KEY (`PROP_ID`),
   ADD KEY `fk_advertiser` (`ADVERTISER_ID`);
+
+--
+-- Indexes for table `room`
+--
+ALTER TABLE `room`
+  ADD PRIMARY KEY (`ROOM_ID`),
+  ADD KEY `fk_prop` (`PROP_ID`) USING BTREE;
 
 --
 -- Indexes for table `users`
@@ -132,10 +168,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT for table `admins`
 --
-ALTER TABLE `admin`
-  MODIFY `ADMIN_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `admins`
+  MODIFY `ADMIN_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `property`
@@ -144,20 +180,20 @@ ALTER TABLE `property`
   MODIFY `PROP_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `room`
+--
+ALTER TABLE `room`
+  MODIFY `ROOM_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `USER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `USER_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `admin`
---
-ALTER TABLE `admin`
-  ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`USER_ID`);
 
 --
 -- Constraints for table `property`
@@ -165,6 +201,12 @@ ALTER TABLE `admin`
 ALTER TABLE `property`
   ADD CONSTRAINT `fk_advertiser` FOREIGN KEY (`ADVERTISER_ID`) REFERENCES `users` (`USER_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_owner` FOREIGN KEY (`ADVERTISER_ID`) REFERENCES `users` (`USER_ID`);
+
+--
+-- Constraints for table `room`
+--
+ALTER TABLE `room`
+  ADD CONSTRAINT `fk_prop` FOREIGN KEY (`PROP_ID`) REFERENCES `property` (`PROP_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
