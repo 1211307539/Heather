@@ -174,14 +174,14 @@
 
     <header>
         <div>
-        <a href="Thomepage.html" style="text-decoration: none; color: black;">
+        <a href="Phomepage.html" style="text-decoration: none; color: black;">
             <h1 style="font-size:100px; line-height:30%; margin-bottom:25px;">Heather‧࿐࿔ </h1>
         </a>
             <h2 style="font-size:22px;">Find the right cohabitation for you.</h2>
         </div>
 
         <div class="header-buttons">
-            <a href="aboutus.html" class="underline-button">About Us</a>
+            <a href="abtus.html" class="underline-button">About Us</a>
             <div class="dropdown">
                 <a href="#" class="underline-button">Contact Us</a>
                 <div class="dropdown-content">
@@ -200,7 +200,7 @@
         </div>
     </header>
 
-    <form action="approvalList.php" method="post">
+    <form action="portal.php" method="POST">
 
         <div class="header-left">
             <h3>Fill in the form and submit the application for approval.</h3>
