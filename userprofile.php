@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heather</title>
-    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
 
     <style>
         body {
@@ -96,6 +96,16 @@
         .dropdown-item:hover {
             background-color: hsl(162, 68%, 49%);
         }
+
+        .user-details {
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: powderblue;
+        }
     </style>
 </head>
 
@@ -103,44 +113,68 @@
 
     <header>
         <div>
-        <a href="Thomepage.html" style="text-decoration: none; color: black;">
+        <a href="Thomepage.php" style="text-decoration: none; color: black;">
             <h1 style="font-size:100px; line-height:30%; margin-bottom:25px;">Heather‧࿐࿔ </h1>
         </a>
             <h2 style="font-size:22px;">Find the right cohabitation for you.</h2>
         </div>
 
         <div class="header-buttons">
-            <a href="aboutus.html" class="underline-button">About Us</a>
+            <a href="abouts.html" class="underline-button">About Us</a>
             <div class="dropdown">
                 <a href="#" class="underline-button">Contact Us</a>
                 <div class="dropdown-content">
-                    <a href="mailto:1211103282@student.mmu.edu.my" class="dropdown-item">Hanju</a>
+                    <a href="mailto:1211103282@student.mmu.edu.my" class="dropdown-item">Aida</a>
                     <a href="mailto:1211103293@student.mmu.edu.my" class="dropdown-item">Farah</a>
                     <a href="mailto:1211307539@student.mmu.edu.my" class="dropdown-item">Amirah</a>
                 </div>
             </div>
-            <a href="bookingstat.html" class="underline-button">Booking Status</a>
+            <a href="bookingstat.php" class="underline-button">Booking Status</a>
             <button class="button" onclick="openChat()">
-                <img src="chatbox.ico" alt="Chat Box">
+                <img src="img/chatbox.ico" alt="Chat Box">
             </button>
-            <button class="button" onclick="redirectToUserProfile()">
-                <img src="user.ico" alt="User Profile">
+            <button class="button">
+                <img src="img/user.ico" alt="User Profile">
             </button>
         </div>
     </header>
 
+    <?php
+        include "connection.php";
+    
+        session_start();
+        if(isset($_GET['USER_ID'])) {
+            $userId = $_GET['USER_ID']; 
+    
+            $sql = "SELECT USER_ID, USER_EMAIL, CONCAT(USER_FNAME, ' ', USER_LNAME) AS USER_NAME, USER_CONTACT, USER_TYPE 
+                    FROM users";
+            $result = $conn->query($sql);
+        
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc(); 
+            ?>
+                <div class="user-details">
+                    <h1>User Profile</h1>
+                    <p><strong>User ID :</strong> <?php echo $row['USER_ID']; ?></p>
+                    <p><strong>Email :</strong> <?php echo $row['USER_EMAIL']; ?></p>
+                    <p><strong>Name :</strong> <?php echo $row['USER_NAME']; ?></p>
+                    <p><strong>Contact Info :</strong> <?php echo $row['USER_CONTACT']; ?></p>
+                    <p><strong>Role :</strong> <?php echo $row['USER_TYPE']; ?></p>
+                </div>
+            <?php
+            } else {
+                echo "No user found.";
+            }
+        } else {
+            header("Location: login.php"); 
+            exit();
+        }
+    ?>
+
     <script>
         function openChat() {
-            console.log("Opening Chat");
-        }
-
-        function redirectToUserProfile() {
-            window.location.href = 'userprofile.html';
+            window.location.href = 'chatroom.php';
         }
     </script>
-
 </body>
-
 </html>
-
-
