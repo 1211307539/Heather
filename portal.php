@@ -80,6 +80,7 @@
             min-width: 160px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1;
+            right: 0;
         }
 
         .dropdown:hover .dropdown-content {
@@ -181,7 +182,7 @@
         </div>
 
         <div class="header-buttons">
-            <a href="abtus.html" class="underline-button">About Us</a>
+            <a href="aboutus.html" class="underline-button">About Us</a>
             <div class="dropdown">
                 <a href="#" class="underline-button">Contact Us</a>
                 <div class="dropdown-content">
@@ -190,17 +191,21 @@
                     <a href="mailto:1211307539@student.mmu.edu.my" class="dropdown-item">Amirah</a>
                 </div>
             </div>
-            <a href="bookingstat.html" class="underline-button">Booking Status</a>
+            <a href="updatebooking.html" class="underline-button">Booking Status</a>
             <button class="button" onclick="openChat()">
                 <img src="chatbox.ico" alt="Chat Box">
             </button>
-            <button class="button" onclick="redirectToUserProfile()">
-                <img src="user.ico" alt="User Profile">
-            </button>
+            <div class="dropdown">
+                <button class="button"> <img src="img/user.ico" alt="User Profile"> </button>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item" onclick="redirectToUserProfile()">View Profile</a>
+                    <a href="#" class="dropdown-item" onclick="redirectToHomepage()">Logout</a>
+                </div>
+            </div>
         </div>
     </header>
 
-    <form action="portal.php" method="POST">
+    <form action="approvalList.php" method="post">
 
         <div class="header-left">
             <h3>Fill in the form and submit the application for approval.</h3>
@@ -309,11 +314,15 @@
 
     <script>
         function openChat() {
-            console.log("Opening Chat");
+            window.location.href = 'chatroom.php';
         }
 
         function redirectToUserProfile() {
             window.location.href = 'userprofile.html';
+        }
+
+        function redirectToHomepage() {
+            window.location.href = 'homepage.php'
         }
     </script>
 
