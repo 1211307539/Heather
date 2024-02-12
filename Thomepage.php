@@ -97,6 +97,7 @@
             min-width: 160px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1;
+            right: 0;
         }
 
         .dropdown:hover .dropdown-content {
@@ -190,9 +191,13 @@
             <button class="button" onclick="openChat()">
                 <img src="chatbox.ico" alt="Chat Box">
             </button>
-            <button class="button" onclick="redirectToUserProfile()">
-                <img src="user.ico" alt="User Profile">
-            </button>
+            <div class="dropdown">
+                <button class="button"> <img src="img/user.ico" alt="User Profile"> </button>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item" onclick="redirectToUserProfile()">View Profile</a>
+                    <a href="#" class="dropdown-item" onclick="redirectToHomepage()">Logout</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -289,7 +294,11 @@
         }
 
         function redirectToUserProfile() {
-            window.location.href = 'userprofile.html'; // Replace with the actual user profile page
+            window.location.href = 'userprofile.php'; // Replace with the actual user profile page
+        }
+
+        function redirectToHomepage() {
+            window.location.href = 'homepage.php';
         }
     </script>
 
