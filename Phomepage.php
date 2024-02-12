@@ -215,7 +215,7 @@
 
     <script>
         function openChat() {
-            window.location.href = 'chatroom.php';
+            window.location.href = 'chatrooms.php';
         }
 
         function redirectToUserProfile() {
