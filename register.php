@@ -7,7 +7,7 @@
         $confirmPassword = $_POST['CONFIRM_PASS'];
         $fname = $_POST['USER_FNAME'];
         $lname = $_POST['USER_LNAME'];
-        $userRole = $_POST['USER_TYPE']; // New line to capture user role
+        $userRole = $_POST['USER_TYPE']; 
         $errors = array();
         if (empty($email) || empty($phone) || empty($password) || empty($fname) || empty($lname)){
             array_push($errors, "Fill in the blanks!");
@@ -47,7 +47,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heather</title>
-    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
 
     <style>
         body {
@@ -213,7 +213,6 @@
 <body>
 
     <div class="container">
-        <!-- Your HTML content here -->
             <h1>Create a Heather Account</h1>
             <p class="account-selection">Select an account:</p>
 
@@ -225,7 +224,7 @@
                 <span class="button-name">Property Advertiser</span>
             </div>
 
-            <input type="hidden" name="USER_TYPE" id="userRole" value=""> <!-- Hidden input field for user role -->
+            <input type="hidden" name="USER_TYPE" id="userRole" value=""> 
             <input type="text" name="USER_EMAIL" class="input-bar" placeholder="Email" oninput="updateRegisterButtonState()">
             <input type="text" name="USER_CONTACT" class="input-bar" placeholder="Phone Number" oninput="updateRegisterButtonState()">
             <input type="text" name="USER_PASS" class="input-bar" placeholder="Password" oninput="updateRegisterButtonState()">
@@ -276,7 +275,6 @@
             const registerButton = document.querySelector('.register-button');
             const inputFields = document.querySelectorAll('.input-bar');
 
-            // Check if all input fields are filled and the checkbox is checked
             let allFieldsFilled = true;
             inputFields.forEach(input => {
                 if (input.value.trim() === '') {
