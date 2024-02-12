@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heather</title>
-    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
 
     <style>
 
@@ -21,8 +21,6 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 10px;
             margin-bottom: 20px;
-            /* max-height: 600px;
-            overflow: scroll; */
         }
 
         .property-container p { 
@@ -210,14 +208,12 @@
 
     <?php
     include "connection.php";
-    // for listing properties
     $sql = "SELECT *, CONCAT(users.USER_FNAME, ' ', users.USER_LNAME) AS user_name 
             FROM property 
             INNER JOIN users ON property.ADVERTISER_ID = users.USER_ID
-            WHERE status = 'available'"; // should i include unavailable, pending?
+            WHERE status = 'available'";
     $result = $conn->query($sql);
 
-        // for filtering search
         if (isset($_POST['search'])) {
             $searchTerm = $_POST['searchTerm'];
             $sqlSearch = "SELECT *, CONCAT(users.USER_FNAME, ' ', users.USER_LNAME) AS user_name  
@@ -280,6 +276,5 @@
             window.location.href = 'login.php';
         }
     </script>
-
 </body>
 </html>
