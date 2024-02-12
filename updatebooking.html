@@ -80,6 +80,7 @@
             min-width: 160px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1;
+            right: 0;
         }
 
         .dropdown:hover .dropdown-content {
@@ -141,7 +142,7 @@
 
     <header>
         <div>
-        <a href="Thomepage.html" style="text-decoration: none; color: black;">
+        <a href="Phomepage.html" style="text-decoration: none; color: black;">
             <h1 style="font-size:100px; line-height:30%; margin-bottom:25px;">Heather‧࿐࿔ </h1>
         </a>
             <h2 style="font-size:22px;">Find the right cohabitation for you.</h2>
@@ -159,11 +160,15 @@
             </div>
             <a href="#" class="underline-button">Booking Status</a>
             <button class="button" onclick="openChat()">
-                <img src="chatbox.ico" alt="Chat Box">
+                <img src="img/chatbox.ico" alt="Chat Box">
             </button>
-            <button class="button" onclick="redirectToUserProfile()">
-                <img src="user.ico" alt="User Profile">
-            </button>
+            <div class="dropdown">
+                <button class="button"> <img src="img/user.ico" alt="User Profile"> </button>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-item" onclick="redirectToUserProfile()">View Profile</a>
+                    <a href="#" class="dropdown-item" onclick="redirectToHomepage()">Logout</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -242,6 +247,10 @@
 
         function redirectToUserProfile() {
             window.location.href = 'userprofile.html';
+        }
+
+        function redirectToHomepage() {
+            window.location.href = 'homepage.php'
         }
     </script>
 
