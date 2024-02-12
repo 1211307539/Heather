@@ -7,7 +7,7 @@
         $confirmPassword = $_POST['CONFIRM_PASS'];
         $fname = $_POST['USER_FNAME'];
         $lname = $_POST['USER_LNAME'];
-        $userRole = $_POST['USER_ROLE']; // New line to capture user role
+        $userRole = $_POST['USER_TYPE']; // New line to capture user role
         $errors = array();
         if (empty($email) || empty($phone) || empty($password) || empty($fname) || empty($lname)){
             array_push($errors, "Fill in the blanks!");
@@ -42,6 +42,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -224,7 +225,7 @@
                 <span class="button-name">Property Advertiser</span>
             </div>
 
-            <input type="hidden" name="USER_ROLE" id="userRole" value=""> <!-- Hidden input field for user role -->
+            <input type="hidden" name="USER_TYPE" id="userRole" value=""> <!-- Hidden input field for user role -->
             <input type="text" name="USER_EMAIL" class="input-bar" placeholder="Email" oninput="updateRegisterButtonState()">
             <input type="text" name="USER_CONTACT" class="input-bar" placeholder="Phone Number" oninput="updateRegisterButtonState()">
             <input type="text" name="USER_PASS" class="input-bar" placeholder="Password" oninput="updateRegisterButtonState()">
@@ -262,11 +263,11 @@
             if (option === 'tenant') {
                 tenantButton.classList.add('selected');
                 propertyAdvertiserButton.classList.remove('selected');
-                userRoleInput.value = 'tenant';
+                userRoleInput.value = 'Tenant';
             } else if (option === 'propertyAdvertiser') {
                 tenantButton.classList.remove('selected');
                 propertyAdvertiserButton.classList.add('selected');
-                userRoleInput.value = 'property_advertiser';
+                userRoleInput.value = 'Advertiser';
             }
         }
 
