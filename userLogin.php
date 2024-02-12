@@ -40,9 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION["user"] = $email;
                     header("Location: Thomepage.php");
                     break;
-                // case "Advertiser":
-                //     header("Location: fill in here");
-                //     break;
+                case "Advertiser":
+                    header("Location: Phomepage.php");
+                    break;
                 default:
                     echo "Unknown user role.";
                     break;
