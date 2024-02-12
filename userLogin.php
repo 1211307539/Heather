@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: Thomepage.php");
                     break;
                 case "Advertiser":
+                    $_SESSION["user"] = $email;
                     header("Location: Phomepage.php");
                     break;
                 default:
