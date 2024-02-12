@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heather</title>
-    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
 
     <style>
         body {
@@ -97,7 +97,6 @@
             min-width: 160px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1;
-            right: 0;
         }
 
         .dropdown:hover .dropdown-content {
@@ -169,6 +168,7 @@
 </head>
 
 <body>
+
     <header>
         <div>
             <a href="Thomepage.php" style="text-decoration: none; color:black">
@@ -187,17 +187,13 @@
                     <a href="mailto:1211307539@student.mmu.edu.my" class="dropdown-item">Amirah</a>
                 </div>
             </div>
-            <a href="bookingstat.html" class="underline-button">Booking Status</a>
+            <a href="bookingstat.php" class="underline-button">Booking Status</a>
             <button class="button" onclick="openChat()">
-                <img src="chatbox.ico" alt="Chat Box">
+                <img src="img/chatbox.ico" alt="Chat Box">
             </button>
-            <div class="dropdown">
-                <button class="button"> <img src="img/user.ico" alt="User Profile"> </button>
-                <div class="dropdown-content">
-                    <a href="#" class="dropdown-item" onclick="redirectToUserProfile()">View Profile</a>
-                    <a href="#" class="dropdown-item" onclick="redirectToHomepage()">Logout</a>
-                </div>
-            </div>
+            <button class="button" onclick="redirectToUserProfile()">
+                <img src="img/user.ico" alt="User Profile">
+            </button>
         </div>
     </header>
 
@@ -217,14 +213,12 @@
 
     <?php
     include "connection.php";
-    // for listing properties
     $sql = "SELECT *, CONCAT(users.USER_FNAME, ' ', users.USER_LNAME) AS user_name 
             FROM property 
             INNER JOIN users ON property.ADVERTISER_ID = users.USER_ID
-            WHERE status = 'available'"; // should i include unavailable, pending?
+            WHERE status = 'available'"; 
     $result = $conn->query($sql);
 
-        // for filtering search
         if (isset($_POST['search'])) {
             $searchTerm = $_POST['searchTerm'];
             $sqlSearch = "SELECT *, CONCAT(users.USER_FNAME, ' ', users.USER_LNAME) AS user_name  
@@ -237,7 +231,7 @@
             if ($exec->num_rows > 0) {
                 while ($row = mysqli_fetch_assoc($exec)) {
                     ?>
-                        <div class="property-container">
+                            <div class="property-container">
                             <h1><?php echo $row['PROP_NAME']; ?></h1>
                             <img src="<?php echo $row['image']; ?>" alt="Property Image" style="max-width: 100%; height: auto;">
                             <p><strong>Property Advertiser:</strong> <?php echo $row['user_name']; ?></p>
@@ -294,11 +288,8 @@
         }
 
         function redirectToUserProfile() {
-            window.location.href = 'userprofile.php'; // Replace with the actual user profile page
-        }
-
-        function redirectToHomepage() {
-            window.location.href = 'homepage.php';
+            var userId = "<?php echo $_SESSION['USER_ID']; ?>";
+            window.location.href = 'userprofile.php?USER_ID=' + userId;
         }
     </script>
 
