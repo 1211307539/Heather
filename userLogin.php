@@ -4,7 +4,6 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include "connection.php";
 
-    // Get user input
     $email = $_POST["email"];
     $password = $_POST["password"];
 
@@ -18,25 +17,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $result = $stmt->get_result();
 
-         // Check if user exists
         if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc(); // fetch row
-            $role = $row["USER_TYPE"];     // fetch user_type from row
+            $row = $result->fetch_assoc(); 
+            $role = $row["USER_TYPE"];    
 
-
-            // Set session variable based on the role
-            $_SESSION["USER_ID"] = $email; // Assuming email is unique
+            $_SESSION["USER_ID"] = $email; 
             $_SESSION["USER_TYPE"] = $role;
 
-            // Fetch the user's first name from the database
             $userFirstName = $row["USER_FNAME"];
             $userID = $row["USER_ID"];
 
-            // Set the user's first name in the session
             $_SESSION["USER_FNAME"] = $userFirstName;
             $_SESSION["USER_ID"] = $userID;
 
-            // Redirect based on the role
             switch ($role) {
                 case "Tenant":
                     $_SESSION["user"] = $email;
