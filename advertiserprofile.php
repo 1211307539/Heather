@@ -173,7 +173,7 @@
         </div>
 
         <div class="header-buttons">
-            <a href="aboutus.html" class="underline-button">About Us</a>
+            <a href="abtus.html" class="underline-button">About Us</a>
             <div class="dropdown">
                 <a href="#" class="underline-button">Contact Us</a>
                 <div class="dropdown-content">
@@ -215,7 +215,7 @@
 
     <script>
         function openChat() {
-            window.location.href = 'chatroom.php';
+            window.location.href = 'chatrooms.php';
         }
 
         function redirectToUserProfile() {
@@ -224,6 +224,10 @@
 
         function redirectToEditProfile(){
             window.location.href = 'editprofile.html';
+        }
+
+        function redirectToHomepage() {
+            window.location.href = 'homepage.php';
         }
     </script>
 
