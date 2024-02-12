@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heather</title>
-    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
 
     <style>
         body {
@@ -134,57 +134,63 @@
         </div>
 
         <div class="right-side">
-            <div class="advertiser-header">
-                <h2 style="font-size:20px; margin-top:0;">
-                    <?php
-                    include "connection.php";        
-                    if (isset($_GET['ADVERTISER_ID'])) {
-                        $advertiserId = $_GET['ADVERTISER_ID'];
-
-                        echo "Advertiser ID: $advertiserId";
-                    } else {
-                        echo "Error: Advertiser ID not provided.";
-                    }
-                    ?>
-                </h2>
-            </div>
             <div class="message-box-container" id="messageContainer"></div>
             <div class="message-input-container">
                 <textarea id="messageBox" placeholder="Type your message here..." onkeypress="handleKeyPress(event)"></textarea>
                 <img id="sendButton" src="img/send.png" alt="Send" onclick="sendMessage()">
-            </div>
+        </div>
 
-            <script>
-                var firstMessageSent = false; 
+        <script>
+            var firstMessageSent = false;
+            var chatCounter = 0;
+            var autoReplyMessages = [
+                "Hello! How can I assist you?",
+                "Yes, of course!",
+                "Here is my contact information.",
+                "Great, I have received the payment!",
+                "I will update the status soon.",
+                "You're welcome."
+            ];
 
-                function sendMessage() {
-                    var message = document.getElementById("messageBox").value;
-                    if (message.trim() !== "") {
-                        var messageContainer = document.getElementById("messageContainer");
-                        var sentMessage = document.createElement("div");
-                        sentMessage.className = "message";
-                        sentMessage.textContent = message;
-                        messageContainer.appendChild(sentMessage);
-                        document.getElementById("messageBox").value = "";
+            function sendMessage() {
+                var message = document.getElementById("messageBox").value;
+                if (message.trim() !== "") {
+                    var messageContainer = document.getElementById("messageContainer");
+            
+                    var sentMessage = document.createElement("div");
+                    sentMessage.className = "message";
+                    sentMessage.textContent = message;
+                    messageContainer.appendChild(sentMessage);
+            
+                    var autoReplyIndex = chatCounter % autoReplyMessages.length;
+                    var receivedMessage = document.createElement("div");
+                    receivedMessage.className = "message received-message"; 
+                    receivedMessage.textContent = autoReplyMessages[autoReplyIndex];
+                    messageContainer.appendChild(receivedMessage);
+              
+                    document.getElementById("messageBox").value = "";
 
-                        if (!firstMessageSent) { 
-                            document.getElementById("advertiserHeader").style.display = "block"; 
-                            firstMessageSent = true; 
-                        }
+                    if (!firstMessageSent) { 
+                        document.getElementById("advertiserHeader").style.display = "block"; 
+                        firstMessageSent = true; 
                     }
-                }
 
-                function handleKeyPress(event) {
-                    if (event.keyCode === 13) { 
-                        event.preventDefault();
-                        sendMessage(); 
-                    }
+                    chatCounter++;
                 }
+            }
 
-                function goToHomepage() {
-                    window.location.href = 'Thomepage.php'; 
+            function handleKeyPress(event) {
+                if (event.keyCode === 13) { 
+                    event.preventDefault();
+                    sendMessage(); 
                 }
-            </script>
+            }
+
+            function goToHomepage() {
+                window.location.href = 'Thomepage.php'; 
+            }
+        </script>
+
         </div>
     </div>
 </body>
