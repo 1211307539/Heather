@@ -30,9 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Fetch the user's first name from the database
             $userFirstName = $row["USER_FNAME"];
+            $userID = $row["USER_ID"];
 
             // Set the user's first name in the session
             $_SESSION["USER_FNAME"] = $userFirstName;
+            $_SESSION["USER_ID"] = $userID;
 
             // Redirect based on the role
             switch ($role) {
