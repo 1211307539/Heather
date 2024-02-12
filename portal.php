@@ -318,7 +318,7 @@
         }
 
         function redirectToUserProfile() {
-            window.location.href = 'userprofile.html';
+            window.location.href = 'advertiserprofile.php';
         }
 
         function redirectToHomepage() {
