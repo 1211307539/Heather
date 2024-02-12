@@ -22,7 +22,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heather</title>
-    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
 
     <style>
         body {
@@ -146,7 +146,6 @@
 </head>
 
 <body>
-
     <header>
         <div>
         <a href="Phomepage.php" style="text-decoration: none; color: black;">
@@ -156,11 +155,11 @@
         </div>
 
         <div class="header-buttons">
-            <a href="aboutus.html" class="underline-button">About Us</a>
+            <a href="abtus.html" class="underline-button">About Us</a>
             <div class="dropdown">
                 <a href="#" class="underline-button">Contact Us</a>
                 <div class="dropdown-content">
-                    <a href="mailto:1211103282@student.mmu.edu.my" class="dropdown-item">Hanju</a>
+                    <a href="mailto:1211103282@student.mmu.edu.my" class="dropdown-item">Aida</a>
                     <a href="mailto:1211103293@student.mmu.edu.my" class="dropdown-item">Farah</a>
                     <a href="mailto:1211307539@student.mmu.edu.my" class="dropdown-item">Amirah</a>
                 </div>
@@ -215,7 +214,7 @@
 
     <script>
         function openChat() {
-            console.log("Opening Chat");
+            window.location.href = 'chatrooms.php';
         }
 
         function redirectToUserProfile() {
@@ -230,7 +229,5 @@
             window.location.href = 'portal.php'
         }
     </script>
-
 </body>
-
 </html>
