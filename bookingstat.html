@@ -1,3 +1,11 @@
+<?php
+    session_start(); 
+    if (!isset($_SESSION['USER_ID'])) {
+        header("Location: login.php");
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heather</title>
-    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
 
     <style>
         body {
@@ -80,7 +88,6 @@
             min-width: 160px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             z-index: 1;
-            right: 0;
         }
 
         .dropdown:hover .dropdown-content {
@@ -100,7 +107,7 @@
 
         .header-left {
             position: absolute;
-            top: 200px; /* Adjust the distance from the top */
+            top: 200px; 
             left: 20px;
             font-size: 25px;
         }
@@ -129,21 +136,20 @@
 </head>
 
 <body>
-
     <header>
         <div>
-        <a href="Thomepage.html" style="text-decoration: none; color: black;">
+        <a href="Thomepage.php" style="text-decoration: none; color: black;">
             <h1 style="font-size:100px; line-height:30%; margin-bottom:25px;">Heather‧࿐࿔ </h1>
         </a>
             <h2 style="font-size:22px;">Find the right cohabitation for you.</h2>
         </div>
 
         <div class="header-buttons">
-            <a href="aboutus.html" class="underline-button">About Us</a>
+            <a href="abouts.html" class="underline-button">About Us</a>
             <div class="dropdown">
                 <a href="#" class="underline-button">Contact Us</a>
                 <div class="dropdown-content">
-                    <a href="mailto:1211103282@student.mmu.edu.my" class="dropdown-item">Hanju</a>
+                    <a href="mailto:1211103282@student.mmu.edu.my" class="dropdown-item">Aida</a>
                     <a href="mailto:1211103293@student.mmu.edu.my" class="dropdown-item">Farah</a>
                     <a href="mailto:1211307539@student.mmu.edu.my" class="dropdown-item">Amirah</a>
                 </div>
@@ -152,13 +158,6 @@
             <button class="button" onclick="openChat()">
                 <img src="img/chatbox.ico" alt="Chat Box">
             </button>
-            <div class="dropdown">
-                <button class="button"> <img src="img/user.ico" alt="User Profile"> </button>
-                <div class="dropdown-content">
-                    <a href="#" class="dropdown-item" onclick="redirectToUserProfile()">View Profile</a>
-                    <a href="#" class="dropdown-item" onclick="redirectToHomepage()">Logout</a>
-                </div>
-            </div>
         </div>
     </header>
 
@@ -172,9 +171,9 @@
                 <th>Status</th>
             </tr>
             <tr>
-                <td>Cyberia SmartHomes</td>
-                <td>CSH-01</td>
-                <td><a href="mailto:amandagoh88@gmail.com">amandagoh88@gmail.com</a></td>
+                <td>Uzumaki Residence</td>
+                <td>1</td>
+                <td><a href="mailto:naruto@gmail.com">naruto@gmail.com</a></td>
                 <td>PENDING</td>
               </tr>
         </table>
@@ -184,16 +183,6 @@
         function openChat() {
             window.location.href = 'chatroom.php';
         }
-
-        function redirectToUserProfile() {
-            window.location.href = 'userprofile.php';
-        }
-
-        function redirectToHomepage() {
-            window.location.href = 'homepage.php';
-        }
     </script>
-
 </body>
-
 </html>
