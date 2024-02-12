@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heather</title>
-    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
 
     <style>
         body {
@@ -75,7 +75,6 @@
                         <button class="Button" onclick="redirectToChatRoom(<?php echo $row['ADVERTISER_ID']; ?>)">Chat to book with us!</button>
                         <button class="Button" onclick="history.back()">Close</button>
                     </div>
-            
                     <?php
                 }
             } else {
@@ -91,6 +90,5 @@
            window.location.href = 'chatroom.php?ADVERTISER_ID=' + advertiserId;
         }
     </script>       
-
 </body>
 </html>
