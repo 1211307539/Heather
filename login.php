@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heather</title>
-    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
     
     <style>
         body {
@@ -151,6 +151,5 @@
             window.location.href = 'register.php';
         }
     </script>
-
 </body>
 </html>
